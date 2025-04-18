@@ -1,6 +1,10 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router';
 import { addToStoredDB } from '../../Utility/addToDB';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const BookDetails = () => {
     const {id} =useParams();
@@ -9,7 +13,21 @@ const BookDetails = () => {
     const singleBook = data.find(book =>book.bookId === bookId);
     const {bookName,image,author,category,review,tags,totalPages,publisher,yearOfPublishing,rating} = singleBook;
 
+
+
+
+    const MySwal = withReactContent(Swal)
+
     const handleMarkAsRead = id => {
+
+
+        MySwal.fire({
+            title: "Good job!",
+            text: "You clicked the button!",
+            icon: "success"
+          });
+
+          toast("Wow so easy!");
         addToStoredDB(id);
     }
 
@@ -21,6 +39,7 @@ const BookDetails = () => {
                 </div>
                 <div>
                     <h2 className='text-4xl font-semibold'>{bookName}</h2>
+                    <ToastContainer />
                     <span>By : {author}</span>
                     <hr />
                     <span>{category}</span>
